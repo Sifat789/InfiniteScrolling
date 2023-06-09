@@ -12,7 +12,7 @@ function App() {
   const [count , setcount] = useState(0)
   
 
-  //checking intersection and making subsequent requests accordingly
+  //creating an observer and checking intersection and making subsequent requests accordingly
   const obs = new IntersectionObserver((entries) => {
     console.log(entries)
     if(entries[0].isIntersecting)
@@ -66,7 +66,7 @@ function App() {
           title: item.snippet.title,
           img: item.snippet.thumbnails.default.url
          })))
-         observer.current=0
+
          console.log(res.data)
          setnextpage(res.data.nextPageToken)
        } catch(err){
@@ -88,6 +88,7 @@ console.log('observer', observer)
           videos.map((video, index) => {
             if(videos.length===index+1)
             {
+              // sending the referrence of the element that needs to be observed with the callback function
               return <div ref={handleObserve} ><Video key={video.url} value={video}/></div>
             }
             else return <Video key={video.url} value={video}/>
